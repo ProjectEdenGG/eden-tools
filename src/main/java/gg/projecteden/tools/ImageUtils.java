@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Supplier;
 
 public class ImageUtils {
 
@@ -67,10 +68,14 @@ public class ImageUtils {
 	}
 
 	public static BufferedImage replace(final BufferedImage image, final Color from, final Color to) {
+		return replace(image, from, () -> to);
+	}
+
+	public static BufferedImage replace(final BufferedImage image, final Color from, final Supplier<Color> to) {
 		for (int x = 0; x < image.getWidth(); x++)
 			for (int y = 0; y < image.getHeight(); y++)
 				if (from.equals(new Color(image.getRGB(x, y))))
-					image.setRGB(x, y, to.getRGB());
+					image.setRGB(x, y, to.get().getRGB());
 
 		return image;
 	}
