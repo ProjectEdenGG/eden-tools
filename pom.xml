@@ -10,8 +10,8 @@
 
 	<properties>
 		<jdk.version>16</jdk.version>
-		<maven.compiler.source>16</maven.compiler.source>
-		<maven.compiler.target>16</maven.compiler.target>
+		<maven.compiler.source>${jdk.version}</maven.compiler.source>
+		<maven.compiler.target>${jdk.version}</maven.compiler.target>
 	</properties>
 
 	<build>

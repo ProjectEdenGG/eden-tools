@@ -9,11 +9,14 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.BiFunction;
 
-import static gg.projecteden.tools.ImageUtils.hex;
+import static gg.projecteden.tools.ColorUtils.hex;
 
 public class Presents {
 
@@ -51,6 +54,7 @@ public class Presents {
 
 	private static final String PRESENTS_PATH = "src/main/resources/presents";
 	private static final File TEMPLATES_FOLDER = Paths.get(PRESENTS_PATH + "/templates").toFile();
+	private static final File BACKGROUNDS_FOLDER = Paths.get(PRESENTS_PATH + "/backgrounds").toFile();
 	private static final File COLORS_FOLDER = Paths.get(PRESENTS_PATH + "/colors").toFile();
 	private static final File RESULTS_FOLDER = Paths.get(PRESENTS_PATH + "/generated").toFile();
 
@@ -91,35 +95,43 @@ public class Presents {
 	}
 
 	@Test
+	@SneakyThrows
 	void generate() {
+		RESULTS_FOLDER.delete();
+		RESULTS_FOLDER.mkdir();
+
+		Map<String, BufferedImage> backgrounds = getBackgrounds();
+
 		int generated = 0;
 
 		final BiFunction<String, PresentColor, BufferedImage> getColoredImage = (file, color) ->
 				ImageUtils.replace(ImageUtils.read(TEMPLATES_FOLDER, file), Color.WHITE, color.getColor());
 
-		for (PresentSide presentSide1 : PresentSide.values()) {
-			for (PresentLine presentLine1 : PresentLine.values()) {
-				for (PresentColor color1 : PresentColor.values()) {
-					final String side = presentSide1.name().toLowerCase();
-					final String line1 = presentLine1.name().toLowerCase();
+		for (String background : backgrounds.keySet()) {
+			for (PresentSide presentSide1 : PresentSide.values()) {
+				for (PresentLine presentLine1 : PresentLine.values()) {
+					for (PresentColor color1 : PresentColor.values()) {
+						final String side = presentSide1.name().toLowerCase();
+						final String line1 = presentLine1.name().toLowerCase();
 
-					final BufferedImage image1 = getColoredImage.apply(String.format("%s-%s.png", side, line1), color1);
+						final BufferedImage image1 = getColoredImage.apply(String.format("%s-%s.png", side, line1), color1);
 
-					for (PresentLine presentLine2 : PresentLine.values()) {
-						final String line2 = presentLine2.name().toLowerCase();
-						if (presentLine1 == presentLine2)
-							continue;
-
-						for (PresentColor color2 : PresentColor.values()) {
-							if (color1 == color2)
+						for (PresentLine presentLine2 : PresentLine.values()) {
+							final String line2 = presentLine2.name().toLowerCase();
+							if (presentLine1 == presentLine2)
 								continue;
 
-							final BufferedImage image2 = getColoredImage.apply(String.format("%s-%s.png", side, line2), color2);
+							for (PresentColor color2 : PresentColor.values()) {
+								if (color1 == color2)
+									continue;
 
-							final BufferedImage result = ImageUtils.combine(image1, image2);
-							final String file = String.format("%s-%s-%s.png", side, color1, color2);
-							ImageUtils.write(result, new File(RESULTS_FOLDER, file.toLowerCase()));
-							++generated;
+								final BufferedImage image2 = getColoredImage.apply(String.format("%s-%s.png", side, line2), color2);
+
+								final BufferedImage result = ImageUtils.combine(backgrounds.get(background), image1, image2);
+								final String file = String.format("%s-%s-%s-%s.png", background, color1, color2, side);
+								ImageUtils.write(result, new File(RESULTS_FOLDER, file.toLowerCase()));
+								++generated;
+							}
 						}
 					}
 				}
@@ -128,4 +140,21 @@ public class Presents {
 
 		System.out.println("Generated " + generated + " images");
 	}
+
+	private Map<String, BufferedImage> getBackgrounds() throws IOException {
+		return new HashMap<>() {{
+			Files.walk(BACKGROUNDS_FOLDER.toPath()).forEach(path -> {
+				try {
+					if (!path.toUri().toString().contains(".png"))
+						return;
+
+					final String name = path.getFileName().toString().split("\\.")[0];
+					put(name, ImageUtils.read(path.toFile()));
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			});
+		}};
+	}
+
 }
