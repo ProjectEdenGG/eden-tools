@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.function.BiFunction;
 
 import static gg.projecteden.tools.ImageUtils.hex;
 
@@ -93,30 +94,27 @@ public class Presents {
 	void generate() {
 		int generated = 0;
 
+		final BiFunction<String, PresentColor, BufferedImage> getColoredImage = (file, color) ->
+				ImageUtils.replace(ImageUtils.read(TEMPLATES_FOLDER, file), Color.WHITE, color.getColor());
+
 		for (PresentSide presentSide1 : PresentSide.values()) {
 			for (PresentLine presentLine1 : PresentLine.values()) {
 				for (PresentColor color1 : PresentColor.values()) {
 					final String side = presentSide1.name().toLowerCase();
 					final String line1 = presentLine1.name().toLowerCase();
 
-					final String file1 = String.format("%s-%s.png", side, line1);
-					final BufferedImage image1 = ImageUtils.read(TEMPLATES_FOLDER, file1);
+					final BufferedImage image1 = getColoredImage.apply(String.format("%s-%s.png", side, line1), color1);
 
 					for (PresentLine presentLine2 : PresentLine.values()) {
+						final String line2 = presentLine2.name().toLowerCase();
 						if (presentLine1 == presentLine2)
 							continue;
-
-						final String line2 = presentLine2.name().toLowerCase();
 
 						for (PresentColor color2 : PresentColor.values()) {
 							if (color1 == color2)
 								continue;
 
-							final String file2 = String.format("%s-%s.png", side, line2);
-							final BufferedImage image2 = ImageUtils.read(TEMPLATES_FOLDER, file2);
-
-							ImageUtils.replace(image1, Color.WHITE, color1.getColor());
-							ImageUtils.replace(image2, Color.WHITE, color2.getColor());
+							final BufferedImage image2 = getColoredImage.apply(String.format("%s-%s.png", side, line2), color2);
 
 							final BufferedImage result = ImageUtils.combine(image1, image2);
 							final String file = String.format("%s-%s-%s.png", side, color1, color2);

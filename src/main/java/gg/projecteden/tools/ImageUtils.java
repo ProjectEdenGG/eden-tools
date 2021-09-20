@@ -70,11 +70,13 @@ public class ImageUtils {
 		return combined;
 	}
 
-	public static void replace(final BufferedImage image, final Color from, final Color to) {
+	public static BufferedImage replace(final BufferedImage image, final Color from, final Color to) {
 		for (int x = 0; x < image.getWidth(); x++)
 			for (int y = 0; y < image.getHeight(); y++)
 				if (from.equals(new Color(image.getRGB(x, y))))
 					image.setRGB(x, y, to.getRGB());
+
+		return image;
 	}
 
 	public static Color average(final BufferedImage image) {
