@@ -40,13 +40,10 @@ public class Presents {
 	@AllArgsConstructor
 	private enum PresentColor {
 		RED_CONCRETE(new Color(142, 32, 32)), // #8e2020
-		RED_TERRACOTTA(new Color(143, 61, 46)), // #8f3d2e
 		ORANGE_TERRACOTTA(new Color(161, 83, 37)), // #a15325
 		ORANGE_CONCRETE(new Color(224, 97, 0)), // #e06100
-		YELLOW_TERRACOTTA(new Color(186, 133, 35)), // #ba8523
 		YELLOW_CONCRETE(new Color(240, 175, 21)), // #f0af15
 		LIME_CONCRETE(new Color(94, 168, 24)), // #5ea818
-		LIME_TERRACOTTA(new Color(103, 117, 52)), // #677534
 		GREEN_TERRACOTTA(new Color(76, 83, 42)), // #4c532a
 		BLUE_CONCRETE(new Color(44, 46, 143)), // #2c2e8f
 		CYAN_CONCRETE(new Color(21, 119, 136)), // #157788
@@ -55,10 +52,7 @@ public class Presents {
 		PURPLE_CONCRETE(new Color(100, 31, 156)), // #641f9c
 		MAGENTA_CONCRETE(new Color(169, 48, 159)), // #a9309f
 		PINK_CONCRETE(new Color(213, 101, 142)), // #d5658e
-		MAGENTA_TERRACOTTA(new Color(149, 88, 108)), // #95586c
-		PURPLE_TERRACOTTA(new Color(118, 70, 86)), // #764656
-		PINK_TERRACOTTA(new Color(161, 78, 78)), // #a14e4e
-		WHITE_TERRACOTTA(new Color(209, 178, 161)), // #d1b2a1
+		PINK_TERRACOTTA(new Color(255, 121, 121)), // #a14e4e
 		WHITE_CONCRETE(new Color(207, 213, 214)), // #cfd5d6
 		CYAN_TERRACOTTA(new Color(86, 91, 91)), // #565b5b
 		GRAY_CONCRETE(new Color(54, 57, 61)), // #36393d
