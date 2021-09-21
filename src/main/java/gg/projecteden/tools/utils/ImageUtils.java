@@ -1,4 +1,4 @@
-package gg.projecteden.tools;
+package gg.projecteden.tools.utils;
 
 import lombok.SneakyThrows;
 

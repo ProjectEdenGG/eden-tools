@@ -1,5 +1,6 @@
 package gg.projecteden.tools;
 
+import gg.projecteden.tools.utils.ImageUtils;
 import gg.projecteden.utils.MathUtils;
 import gg.projecteden.utils.RandomUtils;
 import lombok.AllArgsConstructor;
@@ -21,7 +22,7 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static gg.projecteden.tools.ColorUtils.hex;
+import static gg.projecteden.tools.utils.ColorUtils.hex;
 
 public class Presents {
 
@@ -149,6 +150,8 @@ public class Presents {
 						if (background.equals(color2.name().toLowerCase()))
 							continue;
 
+						final BufferedImage image2 = getColoredImage.apply(String.format("%s-%s.png", side, "inline"), color2);
+
 						final BufferedImage result = ImageUtils.combine(backgrounds.get(background), image1, image2);
 						final String file = String.format("%s-%s-%s-%s.png", background, color1, color2, side).toLowerCase();
 						paths.append(file).append(System.lineSeparator());
@@ -159,7 +162,7 @@ public class Presents {
 			}
 		}
 
-		try(FileWriter writer = new FileWriter(PATHS_FILE)) {
+		try (FileWriter writer = new FileWriter(PATHS_FILE)) {
 			writer.write(paths.toString());
 		}
 
