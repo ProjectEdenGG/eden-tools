@@ -135,6 +135,9 @@ public class Presents {
 		for (String background : backgrounds.keySet()) {
 			for (PresentSide presentSide1 : PresentSide.values()) {
 				for (PresentColor color1 : PresentColor.values()) {
+					if (background.equals(color1.name().toLowerCase()))
+						continue;
+					
 					final String side = presentSide1.name().toLowerCase();
 
 					final BufferedImage image1 = getColoredImage.apply(String.format("%s-%s.png", side, "outline"), color1);
@@ -142,8 +145,9 @@ public class Presents {
 					for (PresentColor color2 : PresentColor.values()) {
 						if (color1 == color2)
 							continue;
-
-						final BufferedImage image2 = getColoredImage.apply(String.format("%s-%s.png", side, "inline"), color2);
+						
+						if (background.equals(color2.name().toLowerCase()))
+							continue;
 
 						final BufferedImage result = ImageUtils.combine(backgrounds.get(background), image1, image2);
 						final String file = String.format("%s-%s-%s-%s.png", background, color1, color2, side).toLowerCase();
