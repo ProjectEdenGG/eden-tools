@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -67,6 +68,7 @@ public class Presents {
 	private static final File BACKGROUNDS_FOLDER = Paths.get(PRESENTS_PATH + "/backgrounds").toFile();
 	private static final File COLORS_FOLDER = Paths.get(PRESENTS_PATH + "/colors").toFile();
 	private static final File RESULTS_FOLDER = Paths.get(PRESENTS_PATH + "/generated").toFile();
+	private static final File PATHS_FILE = Paths.get(PRESENTS_PATH + "/paths.txt").toFile();
 	private static final int VARIATION = 3;
 
 	@Test
@@ -111,6 +113,9 @@ public class Presents {
 		RESULTS_FOLDER.delete();
 		RESULTS_FOLDER.mkdir();
 
+		PATHS_FILE.delete();
+		PATHS_FILE.createNewFile();
+
 		Map<String, BufferedImage> backgrounds = getBackgrounds();
 
 		int generated = 0;
@@ -126,6 +131,7 @@ public class Presents {
 					return new Color(red, green, blue);
 				});
 
+		StringBuilder paths = new StringBuilder();
 		for (String background : backgrounds.keySet()) {
 			for (PresentSide presentSide1 : PresentSide.values()) {
 				for (PresentColor color1 : PresentColor.values()) {
@@ -140,12 +146,17 @@ public class Presents {
 						final BufferedImage image2 = getColoredImage.apply(String.format("%s-%s.png", side, "inline"), color2);
 
 						final BufferedImage result = ImageUtils.combine(backgrounds.get(background), image1, image2);
-						final String file = String.format("%s-%s-%s-%s.png", background, color1, color2, side);
-						ImageUtils.write(result, new File(RESULTS_FOLDER, file.toLowerCase()));
+						final String file = String.format("%s-%s-%s-%s.png", background, color1, color2, side).toLowerCase();
+						paths.append(file).append(System.lineSeparator());
+						ImageUtils.write(result, new File(RESULTS_FOLDER, file));
 						++generated;
 					}
 				}
 			}
+		}
+
+		try(FileWriter writer = new FileWriter(PATHS_FILE)) {
+			writer.write(paths.toString());
 		}
 
 		System.out.println("Generated " + generated + " images");
