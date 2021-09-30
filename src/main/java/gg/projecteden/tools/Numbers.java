@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 import static java.nio.file.StandardOpenOption.CREATE;
 import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
 
-public class ResourcePackNumbers {
+public class Numbers {
 
 	private static final String PATH = "src/main/resources/numbers";
 
