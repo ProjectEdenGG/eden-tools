@@ -48,6 +48,13 @@
 		</plugins>
 	</build>
 
+	<repositories>
+		<repository>
+			<id>projecteden-repo</id>
+			<url>https://sonatype.projecteden.gg/repository/maven-public/</url>
+		</repository>
+	</repositories>
+
 	<dependencies>
 		<!-- Jupiter -->
 		<dependency>
@@ -67,7 +74,7 @@
 		<dependency>
 			<groupId>gg.projecteden</groupId>
 			<artifactId>eden-api</artifactId>
-			<version>1.6.3</version>
+			<version>1.7.2</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -75,6 +82,7 @@
 			<artifactId>okhttp</artifactId>
 			<version>4.9.1</version>
 		</dependency>
+
 	</dependencies>
 
 </project>
