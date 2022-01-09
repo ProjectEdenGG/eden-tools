@@ -2,11 +2,13 @@ package gg.projecteden.tools;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.apache.commons.lang3.Validate;
 import org.junit.jupiter.api.Test;
 
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import static gg.projecteden.tools.DyeStationColors.BaseColor.RED;
 
@@ -20,12 +22,12 @@ public class DyeStationColors {
 		RED("#FF0000"),
 		ORANGE("#FF8000"),
 		YELLOW("#FFFF00"),
+		GREEN("#00FF00"),
+		LIGHT_BLUE("#00BCFF"),
+		BLUE("#0000FF"),
+		PURPLE("#8800AA"),
 		PINK("#FF88AA"),
 		WHITE("#FFFFFF"),
-		GREEN("#00FF00"),
-		PURPLE("#8800AA"),
-		BLUE("#0000FF"),
-		LIGHT_BLUE("#00BCFF"),
 		;
 
 		private final String hex;
@@ -33,40 +35,98 @@ public class DyeStationColors {
 	}
 
 	public static final List<Color> colorBoxes = new ArrayList<>() {{
-		new Color(255, 117, 117);
-		new Color(255, 94, 94);
-		new Color(255, 66, 66);
+// RED
+		new Color(255, 117, 107);
+		new Color(255, 94, 82);
+		new Color(255, 66, 51);
 		new Color(255, 0, 0);
-		new Color(199, 15, 15);
-		new Color(156, 11, 11);
-		new Color(110, 8, 8);
-		new Color(255, 245, 245);
-		new Color(255, 222, 222);
-		new Color(255, 194, 194);
-		new Color(255, 128, 128);
-		new Color(199, 143, 143);
-		new Color(156, 139, 139);
-		new Color(110, 136, 136);
+		new Color(199, 15, 0);
+		new Color(156, 11, 0);
+		new Color(110, 8, 0);
+// ORANGE
+		new Color(255, 245, 107);
+		new Color(255, 222, 82);
+		new Color(255, 194, 51);
+		new Color(255, 128, 0);
+		new Color(199, 143, 0);
+		new Color(156, 139, 0);
+		new Color(110, 136, 0);
+// YELLOW
+		new Color(255, 255, 0);
+// GREEN
+		new Color(0, 255, 0);
+// LIGHT_BLUE
+		new Color(0, 188, 255);
+// BLUE
+		new Color(0, 0, 255);
+// PURPLE
+		new Color(136, 94, 252);
+		new Color(136, 66, 221);
+		new Color(136, 0, 170);
+		new Color(80, 15, 170);
+		new Color(37, 11, 170);
+// PINK
+		new Color(255, 230, 252);
+		new Color(255, 202, 221);
+		new Color(255, 136, 170);
+		new Color(199, 151, 170);
+		new Color(156, 147, 170);
+		new Color(110, 144, 170);
+// WHITE
+		new Color(255, 255, 255);
 	}};
 
 
 	@Test
 	void colors() {
-		final Color baseRed = Color.decode(RED.getHex());
+		final Color redColor = Color.decode(RED.getHex());
 
 		for (BaseColor baseColor : BaseColor.values()) {
 			final Color base = Color.decode(baseColor.getHex());
 
-			for (String hex : red) {
-				final Color currentRed = Color.decode(hex);
-				final Color modified = new Color(
-						base.getRed() + (currentRed.getRed() - baseRed.getRed()),
-						base.getGreen() + (currentRed.getGreen() - baseRed.getGreen()),
-						base.getBlue() + (currentRed.getBlue() - baseRed.getBlue())
-				);
-				baseColor.getResults().add(modified);
+			System.out.println(baseColor.name());
+			for (String hex : DyeStationColors.red) {
+				int baseRed = base.getRed();
+				int baseGreen = base.getGreen();
+				int baseBlue = base.getBlue();
+				System.out.printf("Base: (%d, %d, %d);%n", baseRed, baseGreen, baseBlue);
 
-				System.out.println("new Color(%d, %d, %d);".formatted(modified.getRed(), modified.getGreen(), modified.getGreen()));
+				final Color currentRed = Color.decode(hex);
+				int curRed = currentRed.getRed();
+				int curGreen = currentRed.getGreen();
+				int curBlue = currentRed.getBlue();
+				System.out.printf("Current: (%d, %d, %d);%n", curRed, curGreen, curBlue);
+
+				System.out.printf("Red: (%d, %d, %d);%n", redColor.getRed(), redColor.getGreen(), redColor.getBlue());
+
+				int newRed = baseRed + (curRed - redColor.getRed());
+				int newGreen = baseGreen + (curGreen - redColor.getGreen());
+				int newBlue = baseBlue + (curBlue - redColor.getBlue());
+
+//				if(newRed > 255 || newRed < 0)
+//					newRed = baseRed - (curRed - redColor.getRed());
+//				if(newGreen > 255 || newGreen < 0)
+//					newGreen = baseGreen - (curGreen - redColor.getGreen());
+//				if(newBlue > 255 || newBlue < 0)
+//					newBlue = baseBlue - (curBlue - redColor.getBlue());
+
+				System.out.printf("New: (%d, %d, %d);%n", newRed, newGreen, newBlue);
+				try {
+					final Color modified = new Color(newRed, newGreen, newBlue);
+
+					baseColor.getResults().add(modified);
+
+					System.out.println();
+				}catch(Exception ignored){}
+			}
+
+			System.out.println();
+		}
+
+		for (BaseColor baseColor : BaseColor.values()) {
+			System.out.println("// " + baseColor.name());
+			for (Color color : baseColor.getResults()) {
+				System.out.printf("new Color(%d, %d, %d);%n", color.getRed(), color.getGreen(), color.getBlue());
 			}
 		}
 	}
