@@ -28,6 +28,9 @@ public class ResourcePackTextures {
 			walker.forEach(path -> {
 				try {
 					final String uri = path.toUri().toString();
+					// ignore entity textures
+					if(uri.contains("entity/"))
+						return;
 
 					if (uri.endsWith(".png")){
 						textures.add(path);
