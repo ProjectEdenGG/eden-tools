@@ -32,8 +32,9 @@ public class ResourcePackCharacters {
 			final List<String> chars = new ArrayList<>(Arrays.asList(Files.readString(Path.of(FOLDER + type + ".txt")).split("")));
 
 			for (Provider provider : fontFile.providers)
-				for (String s : provider.chars)
-					chars.removeAll(Arrays.asList(s.split("")));
+				if (provider.chars != null)
+					for (String s : provider.chars)
+						chars.removeAll(Arrays.asList(s.split("")));
 
 			System.out.println("Available " + type + " characters: " + chars);
 		}
