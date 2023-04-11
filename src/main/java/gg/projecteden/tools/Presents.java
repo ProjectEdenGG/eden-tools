@@ -1,8 +1,8 @@
 package gg.projecteden.tools;
 
+import gg.projecteden.api.common.utils.MathUtils;
+import gg.projecteden.api.common.utils.RandomUtils;
 import gg.projecteden.tools.utils.ImageUtils;
-import gg.projecteden.utils.MathUtils;
-import gg.projecteden.utils.RandomUtils;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.SneakyThrows;

@@ -1,7 +1,7 @@
 package gg.projecteden.tools;
 
-import gg.projecteden.utils.MathUtils;
-import gg.projecteden.utils.RandomUtils;
+import gg.projecteden.api.common.utils.MathUtils;
+import gg.projecteden.api.common.utils.RandomUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;

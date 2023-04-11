@@ -1,6 +1,6 @@
 package gg.projecteden.tools;
 
-import gg.projecteden.utils.RandomUtils;
+import gg.projecteden.api.common.utils.RandomUtils;
 import org.junit.jupiter.api.Test;
 
 import java.util.LinkedHashMap;

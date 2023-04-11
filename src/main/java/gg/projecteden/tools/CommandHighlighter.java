@@ -19,10 +19,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import static gg.projecteden.api.common.utils.Nullables.isNullOrEmpty;
 import static gg.projecteden.tools.utils.StringUtils.ANSI_GREEN;
 import static gg.projecteden.tools.utils.StringUtils.ANSI_RED;
 import static gg.projecteden.tools.utils.StringUtils.ANSI_RESET;
-import static gg.projecteden.utils.StringUtils.isNullOrEmpty;
 
 public class CommandHighlighter {
 
