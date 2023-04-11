@@ -29,14 +29,38 @@ public class CommandHighlighter {
 	static AllCommands commands;
 
 	Map<String, String> testMessages = new LinkedHashMap<>() {{
-		put("use /pay <player> <#> to pay a player", "use &c/pay <player> <#>&f to pay a player");
-		put("to set a home, use /home set (home) this /command", "to set a home, use &c/home set (home)&f this /command");
-		put("/warp is valid command, where as /thatCommand is invalid", "&c/warp&f is valid command, where as /thatCommand is invalid");
-		put("/vanish fj and /vanish fq are both valid redirects, /vanish fz is not", "&c/vanish fj&f and &c/vanish fq&f are both valid redirects, &c/vanish&f fz is not");
-		put("different/missing brackets /tppos x (y) {z} pitch yaw", "no brackets &c/tppos x (y) {z} pitch yaw&f");
-		put("Welcome to the server, run /rules to read the rules, and /faq for other shit", "Welcome to the server, run &c/rules&f to read the rules, and &c/faq&f for other shit");
-		put("to do this use /shrug, you can even put text beforehand like this with /shrug [text...] ¯\\_(ツ)_/¯ ", "to do this use &c/shrug&f, you can even put text beforehand like this with &c/shrug [text...]&f ¯\\_(ツ)_/¯ ");
-		put("o/ none \\o of //worldedit this <>< should ><> get \\o/ high o7 lighted o> xyz <3", "o/ none \\o of //worldedit this <>< should ><> get \\o/ high o7 lighted o> xyz <3");
+		put(
+			"use /pay <player> <#> to pay a player",
+			"use &c/pay <player> <#>&f to pay a player"
+		);
+		put(
+			"to set a home, use /home set (home) this /command",
+			"to set a home, use &c/home set (home)&f this /command"
+		);
+		put(
+			"/warp is valid command, where as /thatCommand is invalid",
+			"&c/warp&f is valid command, where as /thatCommand is invalid"
+		);
+		put(
+			"/vanish fj and /vanish fq are both valid redirects, /vanish fz is not",
+			"&c/vanish fj&f and &c/vanish fq&f are both valid redirects, &c/vanish&f fz is not"
+		);
+		put(
+			"different/missing brackets /tppos x (y) {z} pitch yaw",
+			"different/missing brackets &c/tppos x (y) {z} pitch yaw&f"
+		);
+		put(
+			"Welcome to the server, run /rules to read the rules, and /faq for other shit",
+			"Welcome to the server, run &c/rules&f to read the rules, and &c/faq&f for other shit"
+		);
+		put(
+			"to do this use /shrug, you can even put text beforehand like this with /shrug [text...] ¯\\_(ツ)_/¯ ",
+			"to do this use &c/shrug&f, you can even put text beforehand like this with &c/shrug [text...]&f ¯\\_(ツ)_/¯ "
+		);
+		put(
+			"o/ none \\o of //worldedit this <>< should ><> get \\o/ high o7 lighted o> xyz <3",
+			"o/ none \\o of //worldedit this <>< should ><> get \\o/ high o7 lighted o> xyz <3"
+		);
 	}};
 
 	@Test
