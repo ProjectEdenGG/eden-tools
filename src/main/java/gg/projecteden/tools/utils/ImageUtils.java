@@ -36,11 +36,13 @@ public class ImageUtils {
 
 	@SneakyThrows
 	public static void write(final BufferedImage image, final File folder, final String file) {
+		folder.mkdirs();
 		ImageIO.write(image, PNG, new File(folder, file));
 	}
 
 	@SneakyThrows
 	public static void write(final BufferedImage image, final File file) {
+		file.getParentFile().mkdirs();
 		ImageIO.write(image, PNG, file);
 	}
 
