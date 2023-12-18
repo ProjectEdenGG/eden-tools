@@ -41,11 +41,11 @@ public class ResourcePackCharacters {
 	}
 
 	static class FontFile {
-		private List<Provider> providers;
+		private List<Provider> providers = new ArrayList<>();
 
 		static class Provider {
 			private String file;
-			private List<String> chars;
+			private final List<String> chars = new ArrayList<>();
 		}
 	}
 
