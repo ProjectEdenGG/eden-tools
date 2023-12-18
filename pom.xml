@@ -74,7 +74,7 @@
 		<dependency>
 			<groupId>gg.projecteden</groupId>
 			<artifactId>eden-common</artifactId>
-			<version>2.2.7-SNAPSHOT</version>
+			<version>2.2.9-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
