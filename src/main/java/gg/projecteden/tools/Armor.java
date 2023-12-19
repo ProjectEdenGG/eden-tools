@@ -17,7 +17,8 @@ import static java.nio.file.StandardOpenOption.CREATE;
 import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
 
 public class Armor {
-	final List<String> ORDER = List.of("wither", "warden", "berserker", "brown_berserk", "copper", "damascus", "druid", "hellfire", "jarl", "mythril", "tank", "thor", "wizard", "wolf");
+	final List<String> ORDER = List.of("wither", "warden", "berserker", "brown_berserk", "copper", "damascus", "druid",
+			"hellfire", "jarl", "mythril", "tank", "thor", "wizard", "wolf", "fishing");
 	final List<String> SLOTS = List.of("boots", "chestplate", "helmet", "leggings");
 
 	final String MODEL_TEMPLATE = """
